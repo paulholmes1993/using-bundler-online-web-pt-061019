@@ -24,7 +24,7 @@ describe "Bundler" do
 
     # http://bundler.io/v1.3/gemfile.html
     it "should list the hashie gem without specifying a version" do
-      expect(@gemfile_text =~ /gem ['"]hashie['"]/).not_to eq(nil)
+      expect(@gemfile_text =~ /gem ['"]hashie['"]$/).not_to eq(nil)
     end
 
     # http://bundler.io/v1.3/gemfile.html
@@ -38,7 +38,7 @@ describe "Bundler" do
     end
 
     # http://bundler.io/git.html
-    it "should list the awesome_print gem specifying a remote git repository using the SSH URL (use github)" do
+    it "should list the awesome_print gem specifying a remote git repository (use github)" do
       expect(@gemfile_text =~ /gem ['"]awesome_print['"], ?(git:|:git ?=>) ?['"]git@github\.com:awesome\-print\/awesome_print\.git['"]/).not_to eq(nil)
     end
 
@@ -49,7 +49,7 @@ describe "Bundler" do
 
       # http://bundler.io/v1.3/groups.html
       it "should contain the pry gem in the development group using a hash argument to the gem method" do
-        expect(@gemfile_text).to  match(/gem ['"]pry['"], ?(group:|:group ?=>) ?(:development|['"]development['"])/) | match(/group ?(:development|['"]development['"])[\s\S]*gem ['"]pry['"][\s\S]*end/)
+        expect(@gemfile_text =~ /gem ['"]pry['"], ?(group:|:group ?=>) ?(:development|['"]development['"])/).not_to eq(nil)
         expect(@bundle_output =~ /pry/).not_to eq(nil)
 
         bundle_output_without_development = ""
